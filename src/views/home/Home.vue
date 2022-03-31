@@ -2,14 +2,19 @@
     <div>
         <nav-bar class="home-nav">
            <div slot="center">购物街</div>
-           
         </nav-bar>
+        <!-- 将我们的数据传递到我们的homeswiper组件中 -->
+        <!-- 第一个banners是我们在子组件中定义的属性    第二个banners是我们的在当前组件中的属性 -->
+        <home-swiper :banners="banners"></home-swiper>
     </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar.vue"
+import HomeSwiper from "./childComps/HomeSwiper.vue"
 import {getHomeMultidata} from "network/home"
+
+
 export default {
     data() {
         return {
@@ -31,6 +36,7 @@ export default {
     },
     components:{
         NavBar,
+        HomeSwiper,
     },
     mounted() {
         
