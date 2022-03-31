@@ -6,12 +6,14 @@
         <!-- 将我们的数据传递到我们的homeswiper组件中 -->
         <!-- 第一个banners是我们在子组件中定义的属性    第二个banners是我们的在当前组件中的属性 -->
         <home-swiper :banners="banners"></home-swiper>
+        <recommend-view :recommends="recommends"></recommend-view>
     </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar.vue"
 import HomeSwiper from "./childComps/HomeSwiper.vue"
+import RecommendView from "./childComps/RecommendView.vue"
 import {getHomeMultidata} from "network/home"
 
 
@@ -37,6 +39,7 @@ export default {
     components:{
         NavBar,
         HomeSwiper,
+        RecommendView
     },
     mounted() {
         
