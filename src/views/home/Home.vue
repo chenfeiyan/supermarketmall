@@ -8,7 +8,7 @@
         <home-swiper :banners="banners"></home-swiper>
         <recommend-view :recommends="recommends"></recommend-view>
         <feature-view></feature-view>
-
+        <tab-control class="tab-control" :titles="['流行','新款','精选']"></tab-control>
 
         <ul>
             <li>列表1</li>
@@ -120,7 +120,11 @@ import NavBar from "components/common/navbar/NavBar.vue"
 import HomeSwiper from "./childComps/HomeSwiper.vue"
 import RecommendView from "./childComps/RecommendView.vue"
 import FeatureView from "./childComps/FeatureView.vue"
-import {getHomeMultidata} from "network/home"
+
+
+import TabControl from "components/content/tabControl/TabControl.vue"
+import {getHomeMultidata,getHomeGoods} from "network/home"
+
 
 
 export default {
@@ -129,31 +133,54 @@ export default {
             // result:null
             banners:[],
             recommends:[],
+            goods:{
+                "pop":{page:0,list:[]},
+                "new":{page:0,list:[]},
+                "sell":{page:0,list:[]}
+            }
         };
     },
     // 等这个home首页一加载  就调用getHomeMultidata函数
     // 这个函数返回一个request函数   而在request函数中   返回的是一个promise对象
     // 所以我们可以在getHomeMultidata函数的后面直接写这个then方法
     created(){
-        getHomeMultidata().then(res=>{
-            // console.log(res);
-            // this.result=res.data;
-            this.banners=res.data.banner.list;
-            this.recommends=res.data.recommend.list;
-        })
+        // 1.请求多个数据
+        this.getHomeMultidata();
+        // 2.请求商品数据
+        this.getHomeGoods("pop");
+        this.getHomeGoods("new");
+        this.getHomeGoods("sell");
     },
     components:{
         NavBar,
         HomeSwiper,
         RecommendView,
-        FeatureView
+        FeatureView,
+        TabControl,
+        TabControl
     },
     mounted() {
         
     },
 
     methods: {
-        
+        getHomeMultidata(){
+            getHomeMultidata().then(res=>{
+                // console.log(res);
+                // this.result=res.data;
+                this.banners=res.data.banner.list;
+                this.recommends=res.data.recommend.list;
+            })
+        },
+         getHomeGoods(type){
+             const page=this.goods[type].page+1;
+            getHomeGoods(type,page).then(res=>{
+                // console.log(res.data.list);
+                // 将我们从后台获取的数据  传入到这个新数组中  并且将当前的页码加上1
+                this.goods[type].list.push(...res.data.list);
+                this.goods[type].page+=1;
+            })
+         }
     },
 };
 </script>
@@ -171,5 +198,9 @@ export default {
         left: 0;
         right: 0;
         z-index: 9;
+    }
+    .tab-control{
+        position: sticky;
+        top: 44px;
     }
 </style>
