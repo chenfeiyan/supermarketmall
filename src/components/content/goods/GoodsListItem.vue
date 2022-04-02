@@ -37,7 +37,7 @@ export default {
 
 <style  scoped>
   .goods-item{
-      /* width: 48%; */
+      width: 48%;
       padding-bottom: 40px;
       position: relative;
   }

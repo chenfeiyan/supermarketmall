@@ -8,8 +8,12 @@
         <home-swiper :banners="banners"></home-swiper>
         <recommend-view :recommends="recommends"></recommend-view>
         <feature-view></feature-view>
-        <tab-control class="tab-control" :titles="['流行','新款','精选']"></tab-control>
-       <goods-list :goods="goods['pop'].list"></goods-list>
+        <!-- 我们这里执行从tabControl组件传递出来的tabClick函数   也就是我们需要绑定这个自定义属性tabClick -->
+        <tab-control class="tab-control"
+                     :titles="['流行','新款','精选']"
+                     v-on:tabClick="tabClick"
+                     ></tab-control>
+       <goods-list :goods="showGoods"></goods-list>
         <ul>
             <li>列表1</li>
             <li>列表2</li>
@@ -139,7 +143,10 @@ export default {
                 "pop":{page:0,list:[]},
                 "new":{page:0,list:[]},
                 "sell":{page:0,list:[]}
-            }
+            },
+            // 我们这里设置一个默认的展示类型   展示类型就是我们的pop类型
+            // 接下来我们设置一个方法
+            currentType:"pop",
         };
     },
     // 等这个home首页一加载  就调用getHomeMultidata函数
@@ -166,6 +173,23 @@ export default {
     },
 
     methods: {
+        // 事件监听相关的方法
+        tabClick(index){
+            // console.log(index);
+            // 使用switch语句   根据这个idnex的值的不同  我们给这个currentType属性设置具体值
+            switch(index){
+                case 0:
+                    this.currentType="pop";
+                    break;
+                case 1:
+                    this.currentType="new";
+                    break;
+                case 2:
+                    this.currentType="sell";
+                    break;
+            }
+        },
+        // 网络请求相关的方法
         getHomeMultidata(){
             getHomeMultidata().then(res=>{
                 // console.log(res);
@@ -184,6 +208,11 @@ export default {
             })
          }
     },
+    computed:{
+        showGoods(){
+            return this.goods[this.currentType].list
+        }
+    }
 };
 </script>
 

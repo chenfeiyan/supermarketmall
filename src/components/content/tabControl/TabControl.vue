@@ -33,6 +33,8 @@ export default {
     methods: {
         itemClick(index){
             this.currentIndex=index;
+            // 在这里内部点击的时候   将我们的点击的索引值传递出去   传递到home组件里面
+            this.$emit("tabClick",index);
         }
     },
 };
@@ -40,6 +42,7 @@ export default {
 
 <style  scoped>
     .tab-control{
+        z-index: 9;
         display: flex;
         background-color: #fff;
     }
