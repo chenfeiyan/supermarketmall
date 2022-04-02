@@ -1,7 +1,7 @@
 <template>
     <div id="home">
         <nav-bar class="home-nav">
-           <div slot="center">蘑菇街</div>
+           <div slot="center">精品街</div>
         </nav-bar>
         <!-- 将我们的数据传递到我们的homeswiper组件中 -->
         <!-- 第一个banners是我们在子组件中定义的属性    第二个banners是我们的在当前组件中的属性 -->
@@ -9,7 +9,7 @@
         <recommend-view :recommends="recommends"></recommend-view>
         <feature-view></feature-view>
         <tab-control class="tab-control" :titles="['流行','新款','精选']"></tab-control>
-
+       <goods-list :goods="goods['pop'].list"></goods-list>
         <ul>
             <li>列表1</li>
             <li>列表2</li>
@@ -123,7 +123,9 @@ import FeatureView from "./childComps/FeatureView.vue"
 
 
 import TabControl from "components/content/tabControl/TabControl.vue"
+import GoodsList from "./../../components/content/goods/GoodsList.vue"
 import {getHomeMultidata,getHomeGoods} from "network/home"
+
 
 
 
@@ -157,7 +159,7 @@ export default {
         RecommendView,
         FeatureView,
         TabControl,
-        TabControl
+        GoodsList   
     },
     mounted() {
         
