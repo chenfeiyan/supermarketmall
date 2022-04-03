@@ -3,7 +3,7 @@
         <nav-bar class="home-nav">
            <div slot="center">精品街</div>
         </nav-bar>
-       <scroll class="content" ref="scro">
+       <scroll class="content" ref="scro" :probe-type="3">
                 <!-- 将我们的数据传递到我们的homeswiper组件中 -->
             <!-- 第一个banners是我们在子组件中定义的属性    第二个banners是我们的在当前组件中的属性 -->
             <home-swiper :banners="banners"></home-swiper>
@@ -15,7 +15,6 @@
                         v-on:tabClick="tabClick"
                         ></tab-control>
              <goods-list :goods="showGoods"></goods-list>
-       
        </scroll>
        <back-top @click.native="backClick"></back-top>
        

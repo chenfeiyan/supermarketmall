@@ -1,9 +1,12 @@
 <template>
     <div>
+        
         <!-- <h2>分类张无忌</h2> -->
        <div class="wrapper">
             <ul class="content">
             <button @click="btnclick">点击</button>
+            <!-- 这个div点击事件不执行   我们需要在实例对象上面添加一个设置   click:true -->
+            <div @click="divClick">点击</div>
             <li>我是猪猪侠0001</li>
             <li>我是猪猪侠0002</li>
             <li>我是猪猪侠0003</li>
@@ -130,6 +133,7 @@ export default {
             probeType:3,
             // 这里必须设置为true   不然这个下拉加载事件不执行
             pullUpLoad:true,
+            click:true,
         });
         this.scroll.on("scroll",(position)=>{
             // console.log(position);
@@ -143,6 +147,9 @@ export default {
     methods: {
         btnclick(){
             console.log("按钮被点击了");
+        },
+        divClick(){
+            console.log("div点击了");
         }
     },
 };
