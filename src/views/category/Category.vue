@@ -1,8 +1,9 @@
 <template>
     <div>
-        <h2>分类张无忌</h2>
+        <!-- <h2>分类张无忌</h2> -->
        <div class="wrapper">
             <ul class="content">
+            <button @click="btnclick">点击</button>
             <li>我是猪猪侠0001</li>
             <li>我是猪猪侠0002</li>
             <li>我是猪猪侠0003</li>
@@ -126,12 +127,23 @@ export default {
 
     mounted() {
         this.scroll=new BScroll(document.querySelector(".wrapper"),{
-
+            probeType:3,
+            // 这里必须设置为true   不然这个下拉加载事件不执行
+            pullUpLoad:true,
+        });
+        this.scroll.on("scroll",(position)=>{
+            // console.log(position);
+        });
+        // 监听这个下拉加载更多事件
+        this.scroll.on("pullingUp",()=>{
+            console.log("已经到底部了，下拉加载更多.....");
         })
     },
 
     methods: {
-        
+        btnclick(){
+            console.log("按钮被点击了");
+        }
     },
 };
 </script>
